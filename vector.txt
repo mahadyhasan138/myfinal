@@ -1,0 +1,315 @@
+#include<iostream>
+#include<string>
+#include <sstream>
+using namespace std;
+
+
+
+class Element {
+private:
+	int value;
+public:
+	void setValue(int v) {
+		value = v;
+	}
+	int getValue() {
+		return value;
+	}
+};
+
+class VectorBase {
+private:
+	int capacity;
+protected:
+	int size;
+	Element *elements;
+public:
+	VectorBase() {
+		capacity = 100;
+	    elements = new Element[capacity];
+	    size = 0;
+    }
+	int getSize() {
+		return size;
+	}
+	int getCapacity() {
+		return capacity;
+	}
+	~VectorBase() {
+		delete elements;
+	}
+
+};
+
+
+
+
+class Vector: public VectorBase {
+
+    public:
+
+
+    void add(Element e)
+    {
+        elements[size]=e;
+        size++;
+    }
+
+    void add(int index, Element element)
+    {
+        size++;
+        int i;
+        for(i=size-1;i>=index;i--){
+        elements[i]=elements[i-1];
+        }
+
+
+        elements[index]=element;
+
+    }
+
+    Element  elementAt(int index)
+    {
+        return elements[index];
+    }
+
+
+    int capacity()
+    {
+        return getCapacity() ;
+    }
+
+
+    void clear()
+    {
+        for(int i=0;i<size;i++){
+        elements[0].setValue(NULL);
+        }
+        size=0;
+    }
+
+
+
+    bool contains(Element e)
+    {
+         for(int i=0;i<size;i++)
+         {
+             if(elements[i].getValue()==e.getValue()){
+
+               return true;
+                break;
+             }
+
+         }
+         return false;
+    }
+
+
+
+    Element firstElement()
+    {
+        return elements[0];
+    }
+
+
+    Element get(int index)
+    {
+        return elements[index];
+    }
+
+
+
+    int indexOf(Element e)
+    {
+        for(int i=0;i<size;i++)
+        {
+            if(elements[i].getValue()==e.getValue())
+                return i;
+        }
+        return -1;
+    }
+
+
+
+    void insertElementAt(Element obj, int index)
+    {
+        elements[index]=obj;
+    }
+
+
+
+    bool isEmpty()
+    {
+        if(size==0){
+            return true;
+        }
+
+        return false;
+    }
+
+
+    Element lastElement()
+    {
+        return elements[size-1];
+    }
+
+
+    int lastIndexOf(Element e)
+    {
+        int i=size-1;
+        for(int i=size-1;i<=0;i++ )
+        {
+            if(elements[i].getValue()==e.getValue())
+                return i;
+
+        }
+        return -1;
+
+    }
+
+    void  remove(int index)
+    {
+        for(int i=index;i<size-1;i++)
+        {
+            elements[i]=elements[i+1];
+
+        }
+        size--;
+    }
+
+
+    bool remove(Element e)
+    {
+        int i=indexOf(e);
+        if(i==-1){return -1;}
+
+        for(int j=i;j<size-1;j++)
+        {
+            elements[j]=elements[j+1];
+
+        }
+        size--;
+
+        return 1;
+    }
+
+
+    void removeAllElements()
+    {
+        for(int i=0;i<size;i++){
+        elements[0].setValue(NULL);
+        }
+        size=0;
+    }
+
+
+
+    void removeElementAt(int index)
+    {
+        for(int i=index;i<size-1;i++)
+        {
+            elements[i]=elements[i+1];
+
+        }
+        size--;
+    }
+
+    Element set(int index, Element element)
+    {
+        size++;
+        int i;
+        for(i=size-1;i>=index;i--){
+        elements[i]=elements[i-1];
+        }
+
+
+        elements[index]=element;
+
+    }
+
+
+
+
+    int getsize()
+    {
+       return size;
+    }
+
+
+    string toString()
+    {
+
+        std::stringstream ss;
+        for(size_t i = 0; i <size; ++i)
+        {
+          if(i != 0)
+          ss << ",";
+          ss << elements[i].getValue();
+        }
+        std::string s = ss.str();
+
+        return s;
+
+    }
+
+
+
+    void print(Element e)
+    {
+        cout<<e.getValue()<<endl;
+    }
+
+
+    void fulllist()
+    {
+        int i;
+        cout<<"full list is: ";
+        for(int i=0;i<size;i++)
+        {
+            cout<<elements[i].getValue()<<"  ";
+        }
+        cout<<endl;
+    }
+
+};
+
+
+
+int main() {
+	Vector v;
+	Element ob1,ob2,ob3;
+	ob1.setValue(6);
+	ob2.setValue(4);
+
+	ob3.setValue(5);
+
+	v.add(ob1);
+	v.add(ob2);
+
+    v.add(0,ob2);
+
+	//cout << v.getSize() << endl;
+
+	 //cout<<v.elementAt(2).getValue()<<endl;
+
+	//cout << ob2.getValue() << endl;
+
+	//cout<<v.elementAt(0).getValue()<<endl;
+
+	//cout<<v.capacity()<<endl;
+
+	 v.fulllist();
+
+	// v.print(v.firstElement());
+
+
+
+	//v.clear();
+	//cout<<v.contains(ob2)<<endl;
+
+    //cout<<v.isEmpty()<<endl;
+
+    cout<<v.toString()<<endl;
+
+	return 0;
+}
